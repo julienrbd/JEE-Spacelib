@@ -5,6 +5,11 @@
  */
 package frjulienrobardet.metier;
 
+import frjulienrobardet.entities.Navette;
+import frjulienrobardet.facades.NavetteFacadeLocal;
+import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -13,6 +18,14 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class GestionNavette implements GestionNavetteLocal {
+
+    @EJB
+    private NavetteFacadeLocal navetteFacade;
+    
+    @Override
+    public List<Navette> consulterListeNavettes(long idStation) throws StationInconnu {
+        return null;
+    }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class NavetteFacade extends AbstractFacade<Navette> implements NavetteFacadeLocal {
 
-    @PersistenceContext(unitName = "fr.robardetjulien.miage_SpaceLib-ejb_ejb_1.0PU")
+    @PersistenceContext(unitName = "frjulienrobardet_SpaceLib-ejb_ejb_1.0PU")
     private EntityManager em;
 
     @Override

@@ -5,6 +5,9 @@
  */
 package frjulienrobardet.metier;
 
+import frjulienrobardet.entities.Navette;
+import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +16,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface GestionNavetteLocal {
-    
+    List<Navette> consulterListeNavettes(long idStation) throws StationInconnu;
 }

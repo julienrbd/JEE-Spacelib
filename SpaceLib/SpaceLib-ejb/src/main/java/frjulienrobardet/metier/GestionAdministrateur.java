@@ -23,12 +23,18 @@ public class GestionAdministrateur implements GestionAdministrateurLocal {
     private AdministrateurFacadeLocal admin;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    public Long authentifier(String login, String password){
+    public Long authentifier(String login, String password) throws UtilisateurInconnu{
         Administrateur a = admin.authentifier(login, password);
+        if (a == null){
+            throw new UtilisateurInconnu("Ce compte d'administrateur n'existe pas.");
+        }
         return a.getId();
     }
-    public Long creerCompte(String nom, String prenom, String login, String password){
+    public Long creerCompte(String nom, String prenom, String login, String password)throws UtilisateurExistant{
         Administrateur a = new Administrateur(nom, prenom, login, password);
+        if (a == null){
+            throw new UtilisateurExistant("Ce compte d'administrateur existe deja");
+        }
         admin.create(a);
         return a.getId();
     }

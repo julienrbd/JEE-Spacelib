@@ -7,6 +7,8 @@ package frjulienrobardet.metier;
 
 import frjulienrobardet.entities.Usager;
 import frjulienrobardet.facades.UsagerFacadeLocal;
+import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
+import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -22,12 +24,18 @@ public class GestionUsager implements GestionUsagerLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    public Long authentifier(String login, String password){
+    public Long authentifier(String login, String password)throws UtilisateurInconnu{
         Usager u = usager.authentifier(login, password);
+        if (u == null) {
+            throw new UtilisateurInconnu("Ce compte d'usager n'existe pas");
+        }
         return u.getId();
     }
-    public Long creerCompte(String nom, String prenom, String login, String password){
+    public Long creerCompte(String nom, String prenom, String login, String password)throws UtilisateurExistant{
         Usager u = new Usager(nom, prenom, login, password);
+        if (u == null) {
+            throw new UtilisateurExistant("Ce compte d'usager existe déjà");
+        }
         usager.create(u);
         return u.getId();
     }
