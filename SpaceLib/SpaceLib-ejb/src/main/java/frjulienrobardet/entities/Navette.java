@@ -114,7 +114,7 @@ public class Navette implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Navette[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Navette[ id=" + id + " ]";
     }
     
 }

@@ -114,7 +114,7 @@ public class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Utilisateur[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Utilisateur[ id=" + id + " ]";
     }
     
 }

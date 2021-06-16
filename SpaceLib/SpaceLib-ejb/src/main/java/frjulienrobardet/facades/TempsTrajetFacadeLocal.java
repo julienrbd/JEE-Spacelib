@@ -6,6 +6,7 @@
 package frjulienrobardet.facades;
 
 import frjulienrobardet.entities.TempsTrajet;
+import frjulienrobardet.entities.Station;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,7 @@ public interface TempsTrajetFacadeLocal {
     List<TempsTrajet> findRange(int[] range);
 
     int count();
+    
+    TempsTrajet findByStations(Station sd, Station sa);
     
 }

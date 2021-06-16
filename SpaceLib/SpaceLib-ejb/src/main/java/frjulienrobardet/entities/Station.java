@@ -33,6 +33,12 @@ public class Station implements Serializable {
     public Station() {
     }
 
+    public Station(String localisation, int i, String nom) {
+        this.localisation = localisation;
+        this.nbQuais = i;
+        this.nom = nom;
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,6 +53,10 @@ public class Station implements Serializable {
 
     public void setQuais(List<Quai> quais) {
         this.quais = quais;
+    }
+    
+    public void addQuais(Quai quais) {
+        this.quais.add(quais);
     }
 
     public String getLocalisation() {

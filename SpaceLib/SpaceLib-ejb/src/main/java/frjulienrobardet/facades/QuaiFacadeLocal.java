@@ -5,7 +5,9 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Quai;
+import frjulienrobardet.entities.Station;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +31,9 @@ public interface QuaiFacadeLocal {
     List<Quai> findRange(int[] range);
 
     int count();
+    
+    Quai findByNavette(Navette navette);
+    
+    List<Quai> getListeQuaisStation(Station station);
     
 }

@@ -5,6 +5,7 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Station;
 import frjulienrobardet.entities.TempsTrajet;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,6 +28,22 @@ public class TempsTrajetFacade extends AbstractFacade<TempsTrajet> implements Te
 
     public TempsTrajetFacade() {
         super(TempsTrajet.class);
+    }
+
+    /**
+     * 
+     * @param sd designe la station de depart
+     * @param sa designe la station d'arrivée
+     * @return Le temps de trajet entre les deux stations
+     */
+    @Override
+    public TempsTrajet findByStations(Station sd, Station sa) {
+        for (TempsTrajet temps: this.findAll()){
+            if (temps.getStationDepart().equals(sd) && temps.getStationArrivee().equals(sa)){
+                return temps;
+            }
+        }
+        return null;
     }
     
 }

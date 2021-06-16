@@ -27,10 +27,17 @@ public class TempsTrajet implements Serializable {
     @OneToOne
     private Station stationDepart;
     @OneToOne
-    private Station stationArrivée;
+    private Station stationArrivee;
     private int temps;
 
     public TempsTrajet() {
+    }
+
+    public TempsTrajet(Station stationDepart, Station stationArrivee, Integer value) {
+        this.stationDepart = stationDepart;
+        this.stationArrivee = stationArrivee;
+        this.temps = value;
+        
     }
 
     public Long getId() {
@@ -49,12 +56,12 @@ public class TempsTrajet implements Serializable {
         this.stationDepart = stationDepart;
     }
 
-    public Station getStationArrivée() {
-        return stationArrivée;
+    public Station getStationArrivee() {
+        return stationArrivee;
     }
 
-    public void setStationArrivée(Station stationArrivée) {
-        this.stationArrivée = stationArrivée;
+    public void setStationArrivée(Station stationArrivee) {
+        this.stationArrivee = stationArrivee;
     }
 
     public int getTemps() {
@@ -87,7 +94,7 @@ public class TempsTrajet implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.TempsTrajet[ id=" + id + " ]";
+        return "frjulienrobardet.entities.TempsTrajet[ id=" + id + " ]";
     }
     
 }

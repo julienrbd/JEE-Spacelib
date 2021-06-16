@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author JulienRobardet
  */
 @Entity
-public class Administrateur extends Usager {
+public class Administrateur extends Usager implements Serializable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,7 +60,7 @@ public class Administrateur extends Usager {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Administrateur[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Administrateur[ id=" + id + " ]";
     }
     
 }

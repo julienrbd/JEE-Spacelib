@@ -6,6 +6,7 @@
 package frjulienrobardet.facades;
 
 import frjulienrobardet.entities.Station;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,14 @@ public interface StationFacadeLocal {
     List<Station> findRange(int[] range);
 
     int count();
+    
+    /*public int nbNavetteSortantes(Long idStation, Calendar date_sup);
+
+    public int nbNavetteEntrantes(Long idStation, Calendar date_sup);
+
+    */
+    public int nbNavettes(Long idStation);
+
+    public int nbQuais(Long idStation);
     
 }

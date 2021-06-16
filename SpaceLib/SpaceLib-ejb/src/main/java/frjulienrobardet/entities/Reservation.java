@@ -22,7 +22,9 @@ import javax.persistence.TemporalType;
 public abstract class Reservation extends Operation {
 
     private int nbPassagers;
+    @ManyToOne
     private Quai quaiDepart;
+    @ManyToOne
     private Quai quaiArrivee;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dateDepart;
@@ -31,6 +33,15 @@ public abstract class Reservation extends Operation {
 
     public Reservation(){
         
+    }
+
+    public Reservation(int nbPassagers, Quai quaiDepart, Quai quaiArrivee, Calendar dateDepart, Calendar dateArrivee, Navette navette, String statut) {
+        super(navette, statut);
+        this.nbPassagers = nbPassagers;
+        this.quaiDepart = quaiDepart;
+        this.quaiArrivee = quaiArrivee;
+        this.dateDepart = dateDepart;
+        this.dateArrivee = dateArrivee;
     }
 
     public Calendar getDateDepart() {

@@ -35,6 +35,44 @@ public abstract class Operation {
         
     }
 
+    public Operation(Navette navette, String statut) {
+        this.navette = navette;
+        this.statut = statut;
+        this.dateCreation = Calendar.getInstance();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Navette getNavette() {
+        return navette;
+    }
+
+    public void setNavette(Navette navette) {
+        this.navette = navette;
+    }
+
+    public Calendar getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Calendar dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -57,7 +95,7 @@ public abstract class Operation {
 
     @Override
     public String toString() {
-        return "com.miage.spacelib.entities.Operation[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Operation[ id=" + id + " ]";
     }
     
 }

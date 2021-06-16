@@ -5,7 +5,12 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Navette;
+import frjulienrobardet.entities.Quai;
+import frjulienrobardet.entities.Usager;
 import frjulienrobardet.entities.Voyage;
+import java.util.Calendar;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +32,13 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     public VoyageFacade() {
         super(Voyage.class);
+    }
+
+    @Override
+    public Voyage creerVoyage(Navette navette, Usager usager, Quai quaiDepart, Quai quaiArrive, int NbPassagers, Calendar dateDepart, Calendar dateArrivee) {
+        Voyage nouveauVoyage = new Voyage(NbPassagers, navette, Voyage.statutDebutVoyage, usager, dateDepart, dateArrivee, quaiDepart, quaiArrive);
+        this.create(nouveauVoyage);
+        return nouveauVoyage;
     }
     
 }

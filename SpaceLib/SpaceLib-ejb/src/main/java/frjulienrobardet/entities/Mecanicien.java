@@ -76,7 +76,7 @@ public class Mecanicien extends Utilisateur {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Mecanicien[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Mecanicien[ id=" + id + " ]";
     }
     
 }

@@ -31,6 +31,13 @@ public class Quai implements Serializable {
     @OneToOne(mappedBy = "quai")
     private Navette navette;
 
+    public Quai() {
+    }
+
+    public Quai(Station station) {
+        this.station = station;
+    }
+
     public Long getId() {
         return id;
     }
@@ -77,7 +84,7 @@ public class Quai implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Quai[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Quai[ id=" + id + " ]";
     }
     
 }

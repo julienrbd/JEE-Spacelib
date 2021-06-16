@@ -5,7 +5,10 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Station;
+import java.util.Calendar;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +30,58 @@ public class StationFacade extends AbstractFacade<Station> implements StationFac
 
     public StationFacade() {
         super(Station.class);
+    }
+
+    /**
+     * 
+     * @param idStation
+     * @param date_sup
+     * @return Le nombre de navettes sortantes entre maintenant et date_sup
+     */
+    /*@Override
+    public int nbNavetteSortantes(Long idStation, Calendar date_sup) {
+        Station station = this.find(idStation);
+        int nbNavetteSortantes = 0;
+        List<Quai> listeQuai = station.getQuais();
+        for (Quai quai : listeQuai){
+            if (quai.getNavette()!=null){
+                nbNavetteSortantes++;
+            }
+        }
+        return nbNavetteSortantes;
+        
+    }
+
+    @Override
+    public int nbNavetteEntrantes(Long idStation, Calendar date_sup) {
+        Station station = this.find(idStation);
+        int nbNavetteSortantes = 0;
+        List<Quai> listeQuai = station.getQuais();
+        for (Quai quai : listeQuai){
+            if (quai.getNavette()!=null){
+                nbNavetteSortantes++;
+            }
+        }
+        return nbNavetteSortantes;
+    }
+*/
+    @Override
+    public int nbNavettes(Long idStation) {
+        Station station = this.find(idStation);
+        int nbNavette = 0;
+        List<Quai> listeQuai = station.getQuais();
+        for (Quai quai : listeQuai){
+            if (quai.getNavette()!=null){
+                nbNavette++;
+            }
+        }
+        return nbNavette;
+    }
+
+    @Override
+    public int nbQuais(Long idStation) {
+        Station station = this.find(idStation);
+        return station.getNbQuais();
     }
     
 }

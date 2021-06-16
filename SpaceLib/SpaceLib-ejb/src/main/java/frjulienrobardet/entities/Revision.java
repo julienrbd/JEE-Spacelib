@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * @author JulienRobardet
  */
 @Entity
-public class Revision extends Operation {
+public class Revision extends Operation implements Serializable {
 
     public static final String statutRevisionNecessaire = "révision nécessaire";
     public static final String statutDebutRevision = "début de révision";
@@ -34,7 +34,17 @@ public class Revision extends Operation {
 
     public Revision() {
     }
-    
+
+    public Revision(Quai quaiNavette, Navette navette, String statut) {
+        super(navette, statut);
+        this.quaiNavette = quaiNavette;
+    }
+
+    public Revision(Navette navette, String statut, Mecanicien mecanicien, Quai quaiNavette) {
+        super(navette, statut);
+        this.mecanicien = mecanicien;
+        this.quaiNavette = quaiNavette;
+    }
 
     public Long getId() {
         return id;
@@ -82,7 +92,7 @@ public class Revision extends Operation {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Revision[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Revision[ id=" + id + " ]";
     }
     
 }

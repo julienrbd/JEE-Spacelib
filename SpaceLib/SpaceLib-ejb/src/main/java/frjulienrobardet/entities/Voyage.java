@@ -6,6 +6,7 @@
 package frjulienrobardet.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,11 @@ public class Voyage extends Reservation {
     
     public Voyage() {
     }
-    
+
+    public Voyage(int nbPassagers, Navette navette, String statut, Usager usager, Calendar dateDepart, Calendar dateArrivee, Quai quaiDepart, Quai quaiArrivee) {
+        super(nbPassagers, quaiDepart, quaiArrivee, dateDepart, dateArrivee, navette, statut);
+        this.usager = usager;
+    }    
 
     public Long getId() {
         return id;
@@ -72,7 +77,7 @@ public class Voyage extends Reservation {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Voyage[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Voyage[ id=" + id + " ]";
     }
     
 }

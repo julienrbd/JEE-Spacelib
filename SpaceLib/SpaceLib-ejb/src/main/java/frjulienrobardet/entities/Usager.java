@@ -73,7 +73,7 @@ public class Usager extends Utilisateur {
 
     @Override
     public String toString() {
-        return "fr.robardetjulien.miage.entities.Usager[ id=" + id + " ]";
+        return "frjulienrobardet.entities.Usager[ id=" + id + " ]";
     }
     
 }

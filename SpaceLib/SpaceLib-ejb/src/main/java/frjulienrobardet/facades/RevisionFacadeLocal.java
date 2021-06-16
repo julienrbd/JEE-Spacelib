@@ -5,6 +5,9 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Mecanicien;
+import frjulienrobardet.entities.Navette;
+import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Revision;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +32,15 @@ public interface RevisionFacadeLocal {
     List<Revision> findRange(int[] range);
 
     int count();
+    
+    Revision nouveauDebutRevision(Mecanicien mecanicien, Navette navette, Quai quai);
+    
+    Revision nouveauFinRevision(Mecanicien mecanicien, Navette navette, Quai quai);
+    
+    Revision nouveauRevisionNecessaire(Navette navette, Quai quai);
+    
+    Revision recupererDerniereRevisionQuai(Quai quai);
+    
+    Revision recupererDerniereRevisionMecanicienQuai(Quai quai, Mecanicien m);
     
 }

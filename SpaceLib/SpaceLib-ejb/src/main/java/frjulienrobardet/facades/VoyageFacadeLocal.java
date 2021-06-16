@@ -5,7 +5,11 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Navette;
+import frjulienrobardet.entities.Quai;
+import frjulienrobardet.entities.Usager;
 import frjulienrobardet.entities.Voyage;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +33,7 @@ public interface VoyageFacadeLocal {
     List<Voyage> findRange(int[] range);
 
     int count();
+    
+    public Voyage creerVoyage(Navette navette, Usager usager, Quai quaiDepart, Quai quaiArrive, int NbPassagers, Calendar dateDepart, Calendar dateArrivee);
     
 }
