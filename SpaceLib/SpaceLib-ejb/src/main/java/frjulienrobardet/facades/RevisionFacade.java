@@ -55,7 +55,8 @@ public class RevisionFacade extends AbstractFacade<Revision> implements Revision
         String statut = Revision.statutRevisionNecessaire;
         Revision r = new Revision(quai, navette, statut);
         this.create(r);
-        return r;    }
+        return r;
+    }
 
     @Override
     public Revision recupererDerniereRevisionQuai(Quai quai) {

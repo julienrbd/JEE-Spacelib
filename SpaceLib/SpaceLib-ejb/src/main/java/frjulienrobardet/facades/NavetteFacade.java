@@ -6,6 +6,8 @@
 package frjulienrobardet.facades;
 
 import frjulienrobardet.entities.Navette;
+import frjulienrobardet.entities.Voyage;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,24 @@ public class NavetteFacade extends AbstractFacade<Navette> implements NavetteFac
 
     public NavetteFacade() {
         super(Navette.class);
+    }
+
+    @Override
+    public Navette addVoyage(Navette navette, Voyage voyage) {
+        List<Voyage> listeVoyage = navette.getVoyages();
+        listeVoyage.add(voyage);
+        navette.setVoyages(listeVoyage);
+        this.edit(navette);
+        return navette;
+    }
+
+    @Override
+    public Navette setNbVoyages(Navette navette) {
+        int nbVoyages = navette.getNbVoyages();
+        nbVoyages --;
+        navette.setNbVoyages(nbVoyages);
+        this.edit(navette);
+        return navette;
     }
     
 }

@@ -7,6 +7,7 @@ package frjulienrobardet.metier;
 
 import frjulienrobardet.entities.Mecanicien;
 import frjulienrobardet.facades.MecanicienFacadeLocal;
+import frjulienrobardet.facades.StationFacadeLocal;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
 import javax.ejb.EJB;
@@ -20,11 +21,14 @@ import javax.ejb.Stateless;
 public class GestionMecanicien implements GestionMecanicienLocal {
 
     @EJB
-    private MecanicienFacadeLocal mecanicien;
+    private MecanicienFacadeLocal mecanicienFacade;
+
+    
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     public Long authentifier(String login, String password)throws UtilisateurInconnu{
-        Mecanicien m = mecanicien.authentifier(login, password);
+        Mecanicien m = mecanicienFacade.authentifier(login, password);
         if (m == null) {
             throw new UtilisateurInconnu("Ce compte de mécanicien n'existe pas");
         }
@@ -35,7 +39,7 @@ public class GestionMecanicien implements GestionMecanicienLocal {
         if (m == null) {
             throw new UtilisateurExistant("Ce compte de mécanicien existe deja");
         }
-        mecanicien.create(m);
+        mecanicienFacade.create(m);
         return m.getId();
     }
 }
