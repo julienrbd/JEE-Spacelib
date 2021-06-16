@@ -6,6 +6,8 @@
 package frjulienrobardet.facades;
 
 import frjulienrobardet.entities.Usager;
+import frjulienrobardet.entities.Voyage;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -40,6 +42,14 @@ public class UsagerFacade extends AbstractFacade<Usager> implements UsagerFacade
             return u;
         }
         return null;
+    }
+
+    @Override
+    public void addVoyage(Usager usager, Voyage voyage) {
+        List<Voyage> listeVoyage = usager.getVoyages();
+        listeVoyage.add(voyage);
+        usager.setVoyages(listeVoyage);
+        this.edit(usager);
     }
     
 }

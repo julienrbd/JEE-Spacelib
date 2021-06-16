@@ -50,5 +50,12 @@ public class QuaiFacade extends AbstractFacade<Quai> implements QuaiFacadeLocal 
         }
         return listeQuais;
     }
+
+    @Override
+    public Quai setNavette(Quai quai, Navette navette) {
+        quai.setNavette(navette);
+        this.edit(quai);
+        return quai;
+    }
     
 }

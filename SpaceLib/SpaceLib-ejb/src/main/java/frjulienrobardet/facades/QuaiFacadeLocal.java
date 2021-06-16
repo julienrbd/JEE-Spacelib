@@ -36,4 +36,6 @@ public interface QuaiFacadeLocal {
     
     List<Quai> getListeQuaisStation(Station station);
     
+    Quai setNavette(Quai quai, Navette navette);
+    
 }

@@ -6,6 +6,7 @@
 package frjulienrobardet.facades;
 
 import frjulienrobardet.entities.Navette;
+import frjulienrobardet.entities.Voyage;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,9 @@ public interface NavetteFacadeLocal {
     List<Navette> findRange(int[] range);
 
     int count();
+    
+    Navette addVoyage(Navette navette, Voyage voyage);
+    
+    Navette setNbVoyages(Navette navette);
     
 }

@@ -9,6 +9,7 @@ package frjulienrobardet.entities;
  *
  * @author JulienRobardet
  */
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @MappedSuperclass
-public abstract class Reservation extends Operation {
+public abstract class Reservation extends Operation implements Serializable{
 
     private int nbPassagers;
     @ManyToOne

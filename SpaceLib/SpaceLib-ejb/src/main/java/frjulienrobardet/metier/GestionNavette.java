@@ -24,9 +24,6 @@ public class GestionNavette implements GestionNavetteLocal {
     
     @Override
     public List<Navette> consulterListeNavettes(long idStation) throws StationInconnu {
-        return null;
+        return this.navetteFacade.findAll();
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

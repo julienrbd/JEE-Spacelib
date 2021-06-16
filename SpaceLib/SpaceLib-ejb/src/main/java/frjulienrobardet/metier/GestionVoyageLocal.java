@@ -5,7 +5,19 @@
  */
 package frjulienrobardet.metier;
 
+import frjulienrobardet.entities.Voyage;
+import frjulienrobardet.spacelibshared.exceptions.NavetteIndisponible;
+import frjulienrobardet.spacelibshared.exceptions.QuaiIndisponible;
+import frjulienrobardet.spacelibshared.exceptions.QuaiInexistant;
+import frjulienrobardet.spacelibshared.exceptions.ReservationCloturee;
+import frjulienrobardet.spacelibshared.exceptions.ReservationInconnu;
+import frjulienrobardet.spacelibshared.exceptions.ReservationPassee;
+import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
+import frjulienrobardet.spacelibshared.exceptions.TempsTrajetInconnu;
+import java.util.Calendar;
 import javax.ejb.Local;
+import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
+import frjulienrobardet.spacelibshared.exceptions.VoyageInconnu;
 
 /**
  *
@@ -13,5 +25,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface GestionVoyageLocal {
+    
+    public Voyage reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible;
+
+    public void finaliserVoyage(Long idVoyage) throws VoyageInconnu;
     
 }

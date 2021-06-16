@@ -5,7 +5,9 @@
  */
 package frjulienrobardet.facades;
 
+import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Usager;
+import frjulienrobardet.entities.Voyage;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,5 +33,7 @@ public interface UsagerFacadeLocal {
     int count();
     
     Usager authentifier(String login, String password);
+    
+    void addVoyage(Usager usager, Voyage voyage);
     
 }
