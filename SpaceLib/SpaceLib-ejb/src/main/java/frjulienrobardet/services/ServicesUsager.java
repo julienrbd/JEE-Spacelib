@@ -5,13 +5,22 @@
  */
 package frjulienrobardet.services;
 
+import frjulienrobardet.entities.Voyage;
+import frjulienrobardet.spacelibshared.services.ServicesUsagerRemote;
 import frjulienrobardet.facades.QuaiFacadeLocal;
 import frjulienrobardet.facades.StationFacadeLocal;
 import frjulienrobardet.metier.GestionStationLocal;
 import frjulienrobardet.metier.GestionUsagerLocal;
 import frjulienrobardet.metier.GestionVoyageLocal;
+import frjulienrobardet.spacelibshared.exceptions.NavetteIndisponible;
+import frjulienrobardet.spacelibshared.exceptions.QuaiIndisponible;
+import frjulienrobardet.spacelibshared.exceptions.QuaiInexistant;
+import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
+import frjulienrobardet.spacelibshared.exceptions.TempsTrajetInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
+import frjulienrobardet.spacelibshared.export.VoyageExport;
+import java.util.Calendar;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -47,8 +56,25 @@ public class ServicesUsager implements ServicesUsagerRemote {
     public Long creerCompte(String nom, String prenom, String login, String motdepasse) throws UtilisateurExistant{
         return this.gestionUsager.creerCompte(nom, prenom, login, motdepasse);
     }
-    
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public VoyageExport reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers, Calendar dateDepart) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible{
+        Voyage voyage = this.gestionVoyage.reserverVoyage(idUsager, idStationDepart, idStationArrivee, NbPassagers);
+        System.out.println("Voyage = " + voyage);
+        VoyageExport voyageExport = new VoyageExport();
+
+        voyageExport.setDateArrivee(voyage.getDateArrivee());
+        voyageExport.setDateCreation(voyage.getDateCreation());
+        voyageExport.setDateDepart(voyage.getDateDepart());
+        voyageExport.setId(voyage.getId());
+        voyageExport.setNavette(voyage.getNavette().getId());
+        voyageExport.setNbPassagers(voyage.getNbPassagers());
+        voyageExport.setQuaiArrivee(voyage.getQuaiArrivee().getId());
+        voyageExport.setQuaiDepart(voyage.getQuaiDepart().getId());
+        voyageExport.setStatut(voyage.getStatut());
+        voyageExport.setUsager(voyage.getUsager().getId());
+
+        System.out.println("VoyageExport = " + voyageExport);
+        return voyageExport;
+    }
 }

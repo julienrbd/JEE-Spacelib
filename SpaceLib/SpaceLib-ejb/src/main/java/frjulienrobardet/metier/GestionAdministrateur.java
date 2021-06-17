@@ -21,8 +21,8 @@ public class GestionAdministrateur implements GestionAdministrateurLocal {
 
     @EJB
     private AdministrateurFacadeLocal admin;
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
+    @Override
     public Long authentifier(String login, String password) throws UtilisateurInconnu{
         Administrateur a = admin.authentifier(login, password);
         if (a == null){
@@ -30,6 +30,9 @@ public class GestionAdministrateur implements GestionAdministrateurLocal {
         }
         return a.getId();
     }
+    
+    
+    @Override
     public Long creerCompte(String nom, String prenom, String login, String password)throws UtilisateurExistant{
         Administrateur a = new Administrateur(nom, prenom, login, password);
         if (a == null){

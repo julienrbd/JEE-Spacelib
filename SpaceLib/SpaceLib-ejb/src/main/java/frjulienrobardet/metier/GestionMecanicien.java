@@ -22,11 +22,7 @@ public class GestionMecanicien implements GestionMecanicienLocal {
 
     @EJB
     private MecanicienFacadeLocal mecanicienFacade;
-
     
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     public Long authentifier(String login, String password)throws UtilisateurInconnu{
         Mecanicien m = mecanicienFacade.authentifier(login, password);
         if (m == null) {
@@ -41,5 +37,10 @@ public class GestionMecanicien implements GestionMecanicienLocal {
         }
         mecanicienFacade.create(m);
         return m.getId();
+    }
+
+    @Override
+    public long renseignerStationRattachement(String nom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
