@@ -40,5 +40,18 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
         this.create(nouveauVoyage);
         return nouveauVoyage;
     }
+
+    @Override
+    public Voyage findVoyageEnCoursUsager(Usager usager) {
+        Calendar currDate = Calendar.getInstance();
+        for (Voyage voyage : this.findAll()){
+            if (voyage.getUsager().equals(usager)){
+                if ((voyage.getDateArrivee().get(Calendar.DATE) == (currDate.get(Calendar.DATE))) && (voyage.getStatut().equals(Voyage.statutDebutVoyage))){
+                    return voyage;
+                }
+            }
+        }
+        return null;
+    }
     
 }

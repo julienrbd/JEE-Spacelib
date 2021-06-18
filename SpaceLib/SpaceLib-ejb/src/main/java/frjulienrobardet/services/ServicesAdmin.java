@@ -25,9 +25,6 @@ import javax.ejb.Stateless;
 public class ServicesAdmin implements ServicesAdminRemote {
 
     @EJB
-    private StationFacadeLocal stationFacade;
-
-    @EJB
     private GestionStationLocal gestionStation;
 
     @Override

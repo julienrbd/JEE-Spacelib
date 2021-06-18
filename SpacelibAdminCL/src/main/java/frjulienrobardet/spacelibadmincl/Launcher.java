@@ -35,14 +35,8 @@ public class Launcher {
             System.out.println("Ajout de stations : 1");
             CLIUtils utils = new CLIUtils();
             Scanner scanner = new Scanner(System.in);
-            ArrayList<Long> choix = new ArrayList<>();
-            choix.add(new Long(1));
-            choix.add(new Long(2));
-            Long c= utils.saisirEntier(scanner, "Choix: ", choix);
-            if (c == 2) {
-            } else {
-                (new CLIAdmin(serviceAdmin)).run();
-            }
+            (new CLIAdmin(serviceAdmin)).run();
+            
 
         } catch (NamingException ex) {
             System.err.println("Erreur d'initialisation RMI : " + ex.getMessage());

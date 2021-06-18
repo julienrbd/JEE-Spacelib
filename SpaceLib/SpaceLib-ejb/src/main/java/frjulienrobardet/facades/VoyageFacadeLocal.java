@@ -34,6 +34,7 @@ public interface VoyageFacadeLocal {
 
     int count();
     
-    public Voyage creerVoyage(Navette navette, Usager usager, Quai quaiDepart, Quai quaiArrive, int NbPassagers, Calendar dateDepart, Calendar dateArrivee);
+    Voyage creerVoyage(Navette navette, Usager usager, Quai quaiDepart, Quai quaiArrive, int NbPassagers, Calendar dateDepart, Calendar dateArrivee);
     
+    Voyage findVoyageEnCoursUsager(Usager usager);
 }
