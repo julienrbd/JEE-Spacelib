@@ -186,7 +186,7 @@ public class GestionVoyage implements GestionVoyageLocal {
             throw new UtilisateurInconnu("Ce compte d'usager n'existe pas.");
         }
         final Voyage voy = this.voyageFacade.findVoyageEnCoursUsager(usager);     
-         if (voy == null) {
+        if (voy == null) {
             throw new VoyageInconnu("Pas de voyage en cours.");
         }
          
