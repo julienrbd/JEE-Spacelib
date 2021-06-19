@@ -15,6 +15,10 @@ import javax.ejb.Local;
  */
 @Local
 public interface GestionMecanicienLocal {
+    
     public Long authentifier(String login, String password) throws UtilisateurInconnu;
+    
     public Long creerCompte(String nom, String prenom, String login, String password) throws UtilisateurExistant;
+
+    public long renseignerStationRattachement(String nom);
 }

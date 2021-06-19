@@ -178,4 +178,22 @@ public class GestionVoyage implements GestionVoyageLocal {
             this.revisionFacade.create(revisionNecessaire);
         }
     }
+
+    @Override
+    public Voyage voyageEnCours(Long idUsager) throws UtilisateurInconnu, VoyageInconnu {
+        final Usager usager = this.usagerFacade.find(idUsager);
+        if (usager == null) {
+            throw new UtilisateurInconnu("Ce compte d'usager n'existe pas.");
+        }
+        final Voyage voy = this.voyageFacade.findVoyageEnCoursUsager(usager);     
+         if (voy == null) {
+            throw new VoyageInconnu("Pas de voyage en cours.");
+        }
+         
+        if(voy.getQuaiArrivee().getNavette() != null){
+            throw new VoyageInconnu("Ce voyage a déjà été finalisé.");
+        }
+         
+         return voy; 
+    }
 }

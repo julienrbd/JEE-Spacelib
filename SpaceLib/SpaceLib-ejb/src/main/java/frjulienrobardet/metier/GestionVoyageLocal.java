@@ -30,4 +30,6 @@ public interface GestionVoyageLocal {
 
     public void finaliserVoyage(Long idVoyage) throws VoyageInconnu;
     
+    public Voyage voyageEnCours(Long idUsager) throws UtilisateurInconnu, VoyageInconnu ;
+    
 }

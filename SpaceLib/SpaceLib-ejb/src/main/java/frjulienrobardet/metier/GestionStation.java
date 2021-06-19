@@ -55,7 +55,7 @@ public class GestionStation implements GestionStationLocal {
             throw new NombreNavetteInvalide("Nombre de quais / navettes invalide.");
         }
         Station station = new Station(localisation, (int) (long) nb_quais, nom);
-
+        
         List<Navette> navettes = new ArrayList<>();
         for (Integer places : nbPlacesNavettes) {
             Navette navette = new Navette(places);
@@ -63,16 +63,25 @@ public class GestionStation implements GestionStationLocal {
             this.navetteFacade.create(navette);
             navettes.add(navette);
         }
-        int index_navette = 0;
         List<Quai> quais = new ArrayList<>();
+        
         for (int i = 0; i < nb_quais; i++) {
             Quai quai = new Quai(station);
-            if (index_navette < navettes.size()) {
-                quai.setNavette(navettes.get(index_navette));
-                index_navette++;
-            }
-            this.quaiFacade.create(quai);
             quais.add(quai);
+        }
+        for (Navette navette : navettes){
+            for (Quai quai: quais){
+                    if (navette.getQuai() == null && quai.getNavette() == null){
+                        quai.setNavette(navette);
+                        navette.setQuai(quai);
+                    }else {
+                        
+                    }
+                }
+                
+        }
+        for (Quai quai: quais){
+            this.quaiFacade.create(quai);
         }
         station.setQuais(quais);
         this.stationFacade.create(station);
