@@ -9,6 +9,7 @@ import frjulienrobardet.spacelibshared.exceptions.NavetteIndisponible;
 import frjulienrobardet.spacelibshared.exceptions.QuaiIndisponible;
 import frjulienrobardet.spacelibshared.exceptions.QuaiInexistant;
 import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
+import frjulienrobardet.spacelibshared.exceptions.StationInsuffisante;
 import frjulienrobardet.spacelibshared.exceptions.TempsTrajetInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
@@ -35,7 +36,7 @@ public class Launcher {
         erreur(ex.getMessage());
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws StationInsuffisante{
         try {
             try {
                 Context ctx = new InitialContext();

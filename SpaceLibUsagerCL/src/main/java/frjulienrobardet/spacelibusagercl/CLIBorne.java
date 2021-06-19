@@ -9,6 +9,7 @@ import frjulienrobardet.spacelibshared.exceptions.NavetteIndisponible;
 import frjulienrobardet.spacelibshared.exceptions.QuaiIndisponible;
 import frjulienrobardet.spacelibshared.exceptions.QuaiInexistant;
 import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
+import frjulienrobardet.spacelibshared.exceptions.StationInsuffisante;
 import frjulienrobardet.spacelibshared.exceptions.TempsTrajetInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
@@ -41,11 +42,17 @@ public class CLIBorne {
         this.serviceUsager = serviceUsager;
     }
 
-    public void run() throws UtilisateurInconnu, IllegalAccessException, InvocationTargetException, QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, StationInconnu, VoyageInconnu, UtilisateurExistant, NavetteIndisponible {
+    public void run() throws UtilisateurInconnu, IllegalAccessException, InvocationTargetException, QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, StationInconnu, VoyageInconnu, UtilisateurExistant, NavetteIndisponible, StationInsuffisante {
         ArrayList<StationExport> stations = this.serviceUsager.obtenirStations();
+        if(stations.size() < 2 ){
+            throw new StationInsuffisante("Il n'existe pas assez de station pour faire fonctionner l'application");
+        } 
+        
+        System.out.println("Voici la liste des stations : ");
         Long idStationCourante = ChoisirStationCourante(stations);
+        System.out.println("Veuillez choisir votre station de départ : ");
         while (true) {
-            System.out.println("Quel type de client êtes vous ?");
+            System.out.println("Quel type de client êtes vous ? (Conducteur / Usager)");
             String typeClient = utils.saisirChaine(scanner);
             try {
                 if (typeClient.equalsIgnoreCase("Conducteur")) {
@@ -98,6 +105,8 @@ public class CLIBorne {
 
     private Long ChoisirStationCourante(ArrayList<StationExport> stations) throws IllegalAccessException, InvocationTargetException {
         afficherListeStations(stations);
+        
+        System.out.println("Veuillez choisir votre station de départ : ");
         //"Station courante: ",
         return utils.saisirEntier(scanner,  getIDsStations(stations));
     }
@@ -148,9 +157,14 @@ public class CLIBorne {
     }
 
     private void depart(Long usager, Long idStationDepart, ArrayList<StationExport> stationsArrivee) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible {
+        System.out.println("Voici la liste des stations : ");
         afficherListeStations(stationsArrivee);
+        System.out.println("Indiquer le numero de votre destination : ");
         //, "Station d'arrivée: "
         Long idStationArrivee = utils.saisirEntier(scanner, getIDsStations(stationsArrivee));
+        
+        
+        System.out.println("Indiquer le nombre de passager :  : ");
         // "Nombre de passagers: ",
         Long nbPassagers = utils.saisirEntier(scanner, new Long(0), Long.MAX_VALUE);
         VoyageExport voyage = this.serviceUsager.reserverVoyage(usager, idStationDepart, idStationArrivee, (int) (long) nbPassagers);
