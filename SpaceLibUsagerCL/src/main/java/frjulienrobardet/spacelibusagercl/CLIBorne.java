@@ -46,7 +46,7 @@ public class CLIBorne {
         Long idStationCourante = ChoisirStationCourante(stations);
         while (true) {
             System.out.println("Quel type de client êtes vous ?");
-            String typeClient = utils.saisirChaine(scanner, "Type de client? ");
+            String typeClient = utils.saisirChaine(scanner);
             try {
                 if (typeClient.equalsIgnoreCase("Conducteur")) {
                 } else if (typeClient.equalsIgnoreCase("Usager")) {
@@ -98,12 +98,13 @@ public class CLIBorne {
 
     private Long ChoisirStationCourante(ArrayList<StationExport> stations) throws IllegalAccessException, InvocationTargetException {
         afficherListeStations(stations);
-        return utils.saisirEntier(scanner, "Station courante: ", getIDsStations(stations));
+        //"Station courante: ",
+        return utils.saisirEntier(scanner,  getIDsStations(stations));
     }
 
     private Long obtenirUsager() throws UtilisateurInconnu, UtilisateurExistant {
         System.out.println("Avez-vous un compte ?");
-        boolean aUnCompte = utils.yesNoQuestion(scanner, "Avez vous un compte ?");
+        boolean aUnCompte = utils.yesNoQuestion(scanner);
         if (aUnCompte) {
             return loginCompte();
         } else {
@@ -113,23 +114,23 @@ public class CLIBorne {
     }
 
     private Long loginCompte() throws UtilisateurInconnu {
-        System.out.println("Veuillez saisir votre login");
-        String login = utils.saisirChaine(scanner, "Login: ");
-        System.out.println("Veuillez saisir votre mot de passe ");
-        String mdp = utils.saisirChaine(scanner, "Mot de passe: ");
+        System.out.println("Login: ");
+        String login = utils.saisirChaine(scanner);
+        System.out.println("Mot de passe: ");
+        String mdp = utils.saisirChaine(scanner);
         Long usager = verifierUsager(login, mdp);
         return usager;
     }
 
     private Long creerCompte() throws UtilisateurExistant {
-        System.out.println("veuillez saisir votre nom");
-        String nom = utils.saisirChaine(scanner, "Nom: ");
-        System.out.println("veuillez saisir votre prenom");
-        String prenom = utils.saisirChaine(scanner, "Prenom: ");
-        System.out.println("veuillez saisir votre login");
-        String login = utils.saisirChaine(scanner, "Login: ");
-        System.out.println("veuillez saisir votre mot de passe");
-        String mdp = utils.saisirChaine(scanner, "Mot de passe: ");
+        System.out.println("Nom: ");
+        String nom = utils.saisirChaine(scanner);
+        System.out.println("Prenom: ");
+        String prenom = utils.saisirChaine(scanner);
+        System.out.println("Login: ");
+        String login = utils.saisirChaine(scanner);
+        System.out.println("Mot de passe: ");
+        String mdp = utils.saisirChaine(scanner);
         return this.serviceUsager.creerCompte(nom, prenom, login, mdp);
     }
 
@@ -148,15 +149,18 @@ public class CLIBorne {
 
     private void depart(Long usager, Long idStationDepart, ArrayList<StationExport> stationsArrivee) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible {
         afficherListeStations(stationsArrivee);
-        Long idStationArrivee = utils.saisirEntier(scanner, "Station d'arrivée: ", getIDsStations(stationsArrivee));
-        Long nbPassagers = utils.saisirEntier(scanner, "Nombre de passagers: ", new Long(0), Long.MAX_VALUE);
+        //, "Station d'arrivée: "
+        Long idStationArrivee = utils.saisirEntier(scanner, getIDsStations(stationsArrivee));
+        // "Nombre de passagers: ",
+        Long nbPassagers = utils.saisirEntier(scanner, new Long(0), Long.MAX_VALUE);
         VoyageExport voyage = this.serviceUsager.reserverVoyage(usager, idStationDepart, idStationArrivee, (int) (long) nbPassagers);
         System.out.println("Réservation réussie. Rendez vous au quai " + voyage.getQuaiDepart());
     }
 
     private void arrivee(Long usager) throws UtilisateurInconnu, VoyageInconnu {
         VoyageExport voyageEncours = this.serviceUsager.voyageEnCours(usager);
-        if (utils.yesNoQuestion(scanner, "Finaliser le voyage en cours? ")) {
+        //, "Finaliser le voyage en cours? "
+        if (utils.yesNoQuestion(scanner)) {
             this.serviceUsager.finaliserVoyage(voyageEncours.getId());
         }
     }

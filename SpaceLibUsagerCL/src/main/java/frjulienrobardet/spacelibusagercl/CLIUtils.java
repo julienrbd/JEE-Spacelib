@@ -15,10 +15,9 @@ import java.util.Scanner;
 public class CLIUtils {
     
 
-    public Long saisirEntier(Scanner sc, String label, ArrayList<Long> range) {
+    public Long saisirEntier(Scanner sc, ArrayList<Long> range) {
         do {
             try {
-                System.out.print(label);
                 Long d = Long.parseLong(sc.next());
                 if (!range.contains(d)) {
                     throw new NumberFormatException("nombre incorrect");
@@ -30,10 +29,9 @@ public class CLIUtils {
         } while (true);
     }
     
-        public Long saisirEntier(Scanner sc, String label, Long limiteInf, Long limiteMax) {
+        public Long saisirEntier(Scanner sc, Long limiteInf, Long limiteMax) {
         do {
             try {
-                System.out.print(label);
                 Long d = Long.parseLong(sc.next());
                 if (d < limiteInf || d > limiteMax) {
                     throw new NumberFormatException("nombre incorrect");
@@ -45,9 +43,8 @@ public class CLIUtils {
         } while (true);
     }
 
-    public String saisirChaine(Scanner sc, String label) {
+    public String saisirChaine(Scanner sc) {
         do {
-            System.out.print(label);
             String c = sc.next();
             c = c == null ? null : c.trim();
             if (c == null || c.isEmpty()) {
@@ -58,9 +55,9 @@ public class CLIUtils {
         } while (true);
     }
 
-    public boolean yesNoQuestion(Scanner sc, String label) {
+    public boolean yesNoQuestion(Scanner sc) {
         do {
-            String s = saisirChaine(sc, label).toLowerCase();
+            String s = saisirChaine(sc).toLowerCase();
             switch (s) {
                 case "y":
                     return true;
