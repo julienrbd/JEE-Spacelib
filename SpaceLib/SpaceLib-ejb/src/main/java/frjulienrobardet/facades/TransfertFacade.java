@@ -104,9 +104,8 @@ public class TransfertFacade extends AbstractFacade<Transfert> implements Transf
 
     @Override
     public Transfert findPlusProcheTransfertDepartDeNavetteADateEtQuai(Calendar dateDepart, Quai quai, Navette navette) {
-       List<Transfert> listeTransfert = new ArrayList<>();
         for (Transfert transfert : this.findAll()){
-            if (transfert.getNavette() == navette && transfert.getDateDepart().compareTo(dateDepart)>= 0 && transfert.getDateArrivee().compareTo(dateDepart)>= 0 && transfert.getQuaiDepart().equals(quai)){
+            if (transfert.getQuaiDepart().equals(quai) && transfert.getDateDepart().compareTo(dateDepart)>= 0 && transfert.getNavette().equals(navette)){
                 return transfert;
             }
         }
@@ -114,10 +113,9 @@ public class TransfertFacade extends AbstractFacade<Transfert> implements Transf
     }
 
     @Override
-    public Transfert findTransfertArriveeJourDateEtQuai(Calendar dateDepart, Quai quai) {
-        List<Transfert> listeTransfert = new ArrayList<>();
+    public Transfert findTransfertArriveeJourDateEtQuai(Calendar dateArrivee, Quai quai) {
         for (Transfert transfert : this.findAll()){
-            if (transfert.getQuaiDepart().equals(quai) && transfert.getDateArrivee().compareTo(dateDepart)>= 0 && transfert.getDateArrivee().compareTo(dateDepart)>= 0 && transfert.getQuaiDepart().equals(quai)){
+            if (transfert.getQuaiArrivee().equals(quai) && transfert.getDateArrivee().compareTo(dateArrivee)== 0){
                 return transfert;
             }
         }
@@ -126,9 +124,8 @@ public class TransfertFacade extends AbstractFacade<Transfert> implements Transf
 
     @Override
     public Transfert findTransfertDepartJourDateEtQuai(Calendar dateDepart, Quai quai) {
-        List<Transfert> listeTransfert = new ArrayList<>();
         for (Transfert transfert : this.findAll()){
-            if (transfert.getQuaiDepart().equals(quai) && transfert.getDateDepart().compareTo(dateDepart)>= 0 && transfert.getDateDepart().compareTo(dateDepart)>= 0 && transfert.getQuaiDepart().equals(quai)){
+            if (transfert.getQuaiDepart().equals(quai) && transfert.getDateDepart().compareTo(dateDepart)== 0){
                 return transfert;
             }
         }

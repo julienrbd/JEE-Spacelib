@@ -30,5 +30,12 @@ public interface MecanicienFacadeLocal {
 
     int count();
     
-    Mecanicien authentifier(String login, String password);
+    Mecanicien findByPrenomAndNom(String prenom, String nom);
+    
+    Mecanicien findByLoginAndPassword(String login, String motdepasse);
+    
+    Mecanicien findByPrenomAndNomAndLogin(String prenom, String nom, String login);
+    
+    Mecanicien creerMecanicienSiInexistant(String prenom, String nom, String login, String motdepasse);
+    
 }

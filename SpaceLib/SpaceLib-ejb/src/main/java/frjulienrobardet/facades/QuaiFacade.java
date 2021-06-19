@@ -8,6 +8,7 @@ package frjulienrobardet.facades;
 import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Station;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,7 +44,7 @@ public class QuaiFacade extends AbstractFacade<Quai> implements QuaiFacadeLocal 
 
     @Override
     public List<Quai> getListeQuaisStation(Station station) {
-        List<Quai> listeQuais = null;
+        List<Quai> listeQuais = new ArrayList<>();
         for(Quai quai : this.findAll()){
         if(quai.getStation().equals(station))
             listeQuais.add(quai);

@@ -31,12 +31,22 @@ public class ConducteurFacade extends AbstractFacade<Conducteur> implements Cond
 
     @Override
     public Conducteur findByLoginAndPassword(String login, String motdepasse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Conducteur conducteur : this.findAll()){
+            if (conducteur.getLogin().equals(login) && conducteur.getPassword().equals(motdepasse)){
+                return conducteur;
+            }
+        }
+        return null;
     }
 
     @Override
     public Conducteur findByPrenomAndNomAndLogin(String prenom, String nom, String login) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Conducteur conducteur : this.findAll()){
+            if (conducteur.getLogin().equals(login) && conducteur.getNom().equals(nom) && conducteur.getPrenom().equals(prenom)){
+                return conducteur;
+            }
+        }
+        return null;
     }
     
 }

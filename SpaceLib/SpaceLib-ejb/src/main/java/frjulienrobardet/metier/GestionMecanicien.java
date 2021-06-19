@@ -6,8 +6,10 @@
 package frjulienrobardet.metier;
 
 import frjulienrobardet.entities.Mecanicien;
+import frjulienrobardet.entities.Station;
 import frjulienrobardet.facades.MecanicienFacadeLocal;
 import frjulienrobardet.facades.StationFacadeLocal;
+import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
 import javax.ejb.EJB;
@@ -21,10 +23,13 @@ import javax.ejb.Stateless;
 public class GestionMecanicien implements GestionMecanicienLocal {
 
     @EJB
+    private StationFacadeLocal stationFacade;
+
+    @EJB
     private MecanicienFacadeLocal mecanicienFacade;
     
     public Long authentifier(String login, String password)throws UtilisateurInconnu{
-        Mecanicien m = mecanicienFacade.authentifier(login, password);
+        Mecanicien m = mecanicienFacade.findByLoginAndPassword(login, password);
         if (m == null) {
             throw new UtilisateurInconnu("Ce compte de mécanicien n'existe pas");
         }
@@ -41,6 +46,17 @@ public class GestionMecanicien implements GestionMecanicienLocal {
 
     @Override
     public long renseignerStationRattachement(String nom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
+    }
+    
+    @Override
+    public long authentifierAvecStationRattachement(String login, String motdepasse, long idStation) throws UtilisateurInconnu, StationInconnu {
+        final Mecanicien mecanicien = this.mecanicienFacade.findByLoginAndPassword(login, motdepasse);
+        if(mecanicien == null) throw new UtilisateurInconnu("Ce compte de mécanicien n'existe pas.");
+        
+        final Station station = this.stationFacade.find(idStation);
+        if(station == null) throw new StationInconnu("Cette station n'existe pas.");
+        
+        return mecanicien.getId();
     }
 }

@@ -39,5 +39,8 @@ public interface StationFacadeLocal {
     public int nbNavettes(Long idStation);
 
     public int nbQuais(Long idStation);
-    
+
+    public int nbNavetteEntrantes(Long id, Calendar cal);
+
+    public int nbNavetteSortantes(Long id, Calendar cal);    
 }

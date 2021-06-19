@@ -38,7 +38,8 @@ public class StationFacade extends AbstractFacade<Station> implements StationFac
      * @param date_sup
      * @return Le nombre de navettes sortantes entre maintenant et date_sup
      */
-    /*@Override
+    
+    @Override
     public int nbNavetteSortantes(Long idStation, Calendar date_sup) {
         Station station = this.find(idStation);
         int nbNavetteSortantes = 0;
@@ -64,7 +65,6 @@ public class StationFacade extends AbstractFacade<Station> implements StationFac
         }
         return nbNavetteSortantes;
     }
-*/
     @Override
     public int nbNavettes(Long idStation) {
         Station station = this.find(idStation);

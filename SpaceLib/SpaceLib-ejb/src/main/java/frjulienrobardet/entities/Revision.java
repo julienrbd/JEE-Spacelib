@@ -46,6 +46,10 @@ public class Revision extends Operation implements Serializable {
         this.quaiNavette = quaiNavette;
     }
 
+    public Revision(Navette navette, String statutRevisionNecessaire, Quai quaiArrivee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Long getId() {
         return id;
     }

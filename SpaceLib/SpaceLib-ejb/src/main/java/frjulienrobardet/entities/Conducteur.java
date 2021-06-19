@@ -31,8 +31,8 @@ public class Conducteur extends Utilisateur implements Serializable {
     public Conducteur() {
     }
 
-    public Conducteur(String nom, String prenom, String login, String motdepasse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Conducteur(String nom, String prenom, String login, String password) {
+        super(nom, prenom, login, password);
     }
     
     public Long getId() {

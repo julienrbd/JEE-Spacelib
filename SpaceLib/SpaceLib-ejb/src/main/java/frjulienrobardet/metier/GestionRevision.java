@@ -71,7 +71,7 @@ public class GestionRevision implements GestionRevisionLocal {
 
     @Override
     public Revision consulterRevisionEnCours(long idMecanicien, long idStation) throws QuaiInexistant {
-        List<Quai> quais = new ArrayList<Quai>();
+        List<Quai> quais;
         Revision revisionResultat = null;
 
         Station station = this.stationFacade.find(idStation);
@@ -85,7 +85,7 @@ public class GestionRevision implements GestionRevisionLocal {
                 if (q.getNavette() != null) {
                     Revision revision = this.revisionFacade.recupererDerniereRevisionMecanicienQuai(q, mecanicien);
                     if (revision != null) {
-                        if (new String(revision.getStatut()).equals(Revision.statutDebutRevision)) {
+                        if (revision.getStatut().equals(Revision.statutDebutRevision)) {
                             // La navette doit possèder 0 voyages
                             if (revision.getNavette().getNbVoyages() == 0) {
                                 // alors c'est bien la révision en cours de réalisation par le mécanicien
@@ -129,8 +129,8 @@ public class GestionRevision implements GestionRevisionLocal {
 
     @Override
     public List<Revision> recupererListeNavettesAReviser(long idStation) throws QuaiInexistant, RevisionInexistante{
-        List<Quai> quais = new ArrayList<Quai>();
-        List<Revision> revisions = new ArrayList<Revision>();
+        List<Quai> quais = new ArrayList<>();
+        List<Revision> revisions = new ArrayList<>();
 
         Station station = this.stationFacade.find(idStation);
 
@@ -146,7 +146,7 @@ public class GestionRevision implements GestionRevisionLocal {
 
                     if (derniereRevisionDuQuai != null) {
                         // si la dernière opération de révision est une révision nécessaire : 
-                        if (new String(derniereRevisionDuQuai.getStatut()).equals(Revision.statutRevisionNecessaire)) {
+                        if (derniereRevisionDuQuai.getStatut().equals(Revision.statutRevisionNecessaire)) {
                             // et si la navette possède bien 0 voyage restant
                             if (derniereRevisionDuQuai.getNavette().getNbVoyages() == 0) {
                                 // alors c'est bien une révision nécessaire !

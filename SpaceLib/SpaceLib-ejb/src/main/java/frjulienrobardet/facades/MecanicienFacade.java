@@ -29,13 +29,45 @@ public class MecanicienFacade extends AbstractFacade<Mecanicien> implements Meca
         super(Mecanicien.class);
     }
     
+
     @Override
-    public Mecanicien authentifier(String login, String password){
-        for(Mecanicien m : this.findAll()){
-        if(m.getLogin().equals(login)&& m.getPassword().equals(password))
-            return m;
+    public Mecanicien findByLoginAndPassword(String login, String motdepasse) {
+        for (Mecanicien mecanicien : findAll()){
+            if (mecanicien.getLogin().equals(login) && mecanicien.getPassword().equals(motdepasse)){
+                return mecanicien;
+            }
         }
         return null;
+    }
+
+    @Override
+    public Mecanicien findByPrenomAndNom(String prenom, String nom) {
+        for (Mecanicien mecanicien : findAll()){
+            if (mecanicien.getPrenom().equals(prenom) && mecanicien.getNom().equals(nom)){
+                return mecanicien;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Mecanicien findByPrenomAndNomAndLogin(String prenom, String nom, String login) {
+        for (Mecanicien mecanicien : findAll()){
+            if (mecanicien.getPrenom().equals(prenom) && mecanicien.getNom().equals(nom) && mecanicien.getLogin().equals(login)){
+                return mecanicien;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Mecanicien creerMecanicienSiInexistant(String prenom, String nom, String login, String motdepasse) {
+        if (this.findByPrenomAndNomAndLogin(prenom, nom, login) == null){
+            Mecanicien m = new Mecanicien(nom, prenom, login, motdepasse);
+            this.create(m);
+            return m;
+        }
+        return this.findByPrenomAndNomAndLogin(prenom, nom, login);
     }
     
 }

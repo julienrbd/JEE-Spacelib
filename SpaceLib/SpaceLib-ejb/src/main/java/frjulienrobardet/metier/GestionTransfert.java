@@ -110,13 +110,13 @@ public class GestionTransfert implements GestionTransfertLocal {
         }
 
         // est ce que la station de départ a au moins un quai ?
-        List<Quai> quaisStationDepart = this.quaiFacade.recupererListeQuaisParStation(stationDepart);
+        List<Quai> quaisStationDepart = this.quaiFacade.getListeQuaisStation(stationDepart);
         if (quaisStationDepart.size() <= 0) {
             throw new QuaiInexistant("Il n'existe pas de quais pour la station de départ.");
         }
 
         // est ce que la station d'arrivée a au moins un quai ?
-        List<Quai> quaisStationArrive = this.quaiFacade.recupererListeQuaisParStation(stationArrive);
+        List<Quai> quaisStationArrive = this.quaiFacade.getListeQuaisStation(stationArrive);
         if (quaisStationArrive.size() <= 0) {
             throw new QuaiInexistant("Il n'existe pas de quais pour la station d'arrivée.");
         }
