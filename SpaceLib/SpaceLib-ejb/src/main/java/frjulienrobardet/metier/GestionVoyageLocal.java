@@ -18,6 +18,7 @@ import java.util.Calendar;
 import javax.ejb.Local;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
 import frjulienrobardet.spacelibshared.exceptions.VoyageInconnu;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,10 +27,14 @@ import frjulienrobardet.spacelibshared.exceptions.VoyageInconnu;
 @Local
 public interface GestionVoyageLocal {
     
-    public Voyage reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible;
-
+    public Voyage reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers, Calendar dateDepart) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible;
+    
     public void finaliserVoyage(Long idVoyage) throws VoyageInconnu;
     
     public Voyage voyageEnCours(Long idUsager) throws UtilisateurInconnu, VoyageInconnu ;
+
+    public void annulerVoyage(Long idClient, Long idReservation) throws UtilisateurInconnu, ReservationInconnu, ReservationPassee, ReservationCloturee;
+    
+    public ArrayList<Voyage> obtenirVoyagesPrevusUsager(Long idUsager) throws UtilisateurInconnu;
     
 }

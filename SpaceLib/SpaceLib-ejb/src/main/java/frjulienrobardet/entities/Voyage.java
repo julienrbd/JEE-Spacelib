@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
  * @author JulienRobardet
  */
 @Entity
-public class Voyage extends Reservation {
+public class Voyage extends Reservation implements Serializable{
 
     public static final String statutDebutVoyage = "voyage initié";
     public static final String statutFinVoyage = "voyage achevé";
@@ -54,7 +54,7 @@ public class Voyage extends Reservation {
     public void setUsager(Usager usager) {
         this.usager = usager;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
