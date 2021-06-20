@@ -1,5 +1,11 @@
 # JEE-Spacelib
 
+# Configuration 
+* JEE version 7
+* Netbeans 8.2
+* GlassfishServer 4.1.1
+* JavaDB
+
 # Installation
 
 ##  Vérifier / Créer la BD : 
