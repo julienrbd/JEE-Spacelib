@@ -5,6 +5,7 @@
  */
 package frjulienrobardet.services;
 
+import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Station;
 import frjulienrobardet.entities.Voyage;
 import frjulienrobardet.spacelibshared.services.ServicesUsagerRemote;
@@ -16,6 +17,9 @@ import frjulienrobardet.metier.GestionVoyageLocal;
 import frjulienrobardet.spacelibshared.exceptions.NavetteIndisponible;
 import frjulienrobardet.spacelibshared.exceptions.QuaiIndisponible;
 import frjulienrobardet.spacelibshared.exceptions.QuaiInexistant;
+import frjulienrobardet.spacelibshared.exceptions.ReservationCloturee;
+import frjulienrobardet.spacelibshared.exceptions.ReservationInconnu;
+import frjulienrobardet.spacelibshared.exceptions.ReservationPassee;
 import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
 import frjulienrobardet.spacelibshared.exceptions.TempsTrajetInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
@@ -63,8 +67,8 @@ public class ServicesUsager implements ServicesUsagerRemote {
     }
 
     @Override
-    public VoyageExport reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible{
-        Voyage voyage = this.gestionVoyage.reserverVoyage(idUsager, idStationDepart, idStationArrivee, NbPassagers);
+    public VoyageExport reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers, Calendar dateDepart) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible{
+        Voyage voyage = this.gestionVoyage.reserverVoyage(idUsager, idStationDepart, idStationArrivee, NbPassagers, dateDepart);
         System.out.println("Voyage = " + voyage);
         VoyageExport voyageExport = new VoyageExport();
 
@@ -118,5 +122,57 @@ public class ServicesUsager implements ServicesUsagerRemote {
             resultList.add(stationExport);
         }
         return resultList;
+    }
+
+    @Override
+    public ArrayList<VoyageExport> obtenirVoyagesPrevusUsager(Long idUsager) throws UtilisateurInconnu {
+        List<Voyage> voyages = this.gestionVoyage.obtenirVoyagesPrevusUsager(idUsager);
+        
+        ArrayList<VoyageExport> voyageExports = new ArrayList<>();
+        
+        for (Voyage voyage : voyages) {
+            VoyageExport voyageExport = new VoyageExport();
+            
+            voyageExport.setDateArrivee(voyage.getDateArrivee());
+            voyageExport.setDateCreation(voyage.getDateCreation());
+            voyageExport.setDateDepart(voyage.getDateDepart());
+            voyageExport.setId(voyage.getId());
+            voyageExport.setNavette(voyage.getNavette().getId());
+            voyageExport.setNbPassagers(voyage.getNbPassagers());
+            voyageExport.setQuaiArrivee(voyage.getQuaiArrivee().getId());
+            voyageExport.setQuaiDepart(voyage.getQuaiDepart().getId());
+            voyageExport.setStatut(voyage.getStatut());
+            voyageExport.setUsager(voyage.getUsager().getId());
+            
+            voyageExports.add(voyageExport);
+        }
+        return voyageExports;
+    }
+
+    @Override
+    public void annulerVoyage(Long idUsager, Long idVoyage) throws UtilisateurInconnu, ReservationInconnu, ReservationPassee, ReservationCloturee {
+        this.gestionVoyage.annulerVoyage(idUsager, idVoyage);
+    }
+
+    @Override
+    public StationExport obtenirStationParIdQuai(Long idQuai) throws StationInconnu, QuaiInexistant {
+        Quai q = this.quaiFacade.find(idQuai);
+        if(q == null){
+            throw new QuaiInexistant("Quai inconnue");
+        }
+
+        Station s = this.stationFacade.find(q.getStation().getId());
+        if(s == null){
+            throw new StationInconnu("Station inconnue");
+        }
+        
+        StationExport stationExport = new StationExport();
+
+        stationExport.setId(s.getId());
+        stationExport.setLocalisation(s.getLocalisation());
+        stationExport.setNbQuais(s.getNbQuais());
+        stationExport.setNom(s.getNom());
+
+        return stationExport;
     }
 }
