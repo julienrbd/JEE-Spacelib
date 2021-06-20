@@ -31,4 +31,6 @@ public interface MecanicienFacadeLocal {
     int count();
     
     Mecanicien authentifier(String login, String password);
+
+    public Mecanicien findByLoginAndPassword(String login, String motdepasse);
 }
