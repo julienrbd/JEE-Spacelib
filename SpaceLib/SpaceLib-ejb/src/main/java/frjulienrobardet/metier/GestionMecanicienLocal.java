@@ -5,7 +5,6 @@
  */
 package frjulienrobardet.metier;
 
-import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
 import javax.ejb.Local;
@@ -22,6 +21,4 @@ public interface GestionMecanicienLocal {
     public Long creerCompte(String nom, String prenom, String login, String password) throws UtilisateurExistant;
 
     public long renseignerStationRattachement(String nom);
-    
-    long authentifierAvecStationRattachement(String login, String motdepasse, long idStation) throws UtilisateurInconnu, StationInconnu;
 }
