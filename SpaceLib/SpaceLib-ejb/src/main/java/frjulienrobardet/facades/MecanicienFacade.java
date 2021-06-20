@@ -37,15 +37,5 @@ public class MecanicienFacade extends AbstractFacade<Mecanicien> implements Meca
         }
         return null;
     }
-
-    @Override
-    public Mecanicien findByLoginAndPassword(String login, String motdepasse) {
-        for (Mecanicien m : this.findAll()){
-            if (m.getLogin().equals(login) && m.getPassword().equals(motdepasse)){
-                return m;
-            }
-        }
-        return null;
-    }
     
 }

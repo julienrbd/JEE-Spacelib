@@ -13,7 +13,6 @@ import java.util.Scanner;
  * @author JulienRobardet
  */
 public class CLIUtils {
-    
     public Long saisirEntier(Scanner sc, String label, ArrayList<Long> range) {
         do {
             try {
@@ -44,8 +43,9 @@ public class CLIUtils {
         } while (true);
     }
 
-    public String saisirChaine(Scanner sc) {
+    public String saisirChaine(Scanner sc, String label) {
         do {
+            System.out.print(label);
             String c = sc.next();
             c = c == null ? null : c.trim();
             if (c == null || c.isEmpty()) {
@@ -56,9 +56,9 @@ public class CLIUtils {
         } while (true);
     }
 
-    public boolean yesNoQuestion(Scanner sc) {
+    public boolean yesNoQuestion(Scanner sc, String label) {
         do {
-            String s = saisirChaine(sc).toLowerCase();
+            String s = saisirChaine(sc, label).toLowerCase();
             switch (s) {
                 case "y":
                     return true;
