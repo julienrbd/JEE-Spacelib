@@ -157,7 +157,7 @@ public class GestionVoyage implements GestionVoyageLocal {
                     dateArriveePrecedenteReservation = precedentVoyage.getDateArrivee();
             }
 
-            // est ce que cette navette a déjà un voyage ou un transfert prévu plus tard ?
+            // est ce que cette navette a déjà un voyage prévu plus tard ?
             boolean autresVoyagesPrevus = false;
             autresVoyagesPrevus = this.voyageFacade.verifierSiAutresVoyagesPrevusSurNavette(dateArriveePrecedenteReservation, navette);
             if (autresVoyagesPrevus == false) {
@@ -232,9 +232,8 @@ public class GestionVoyage implements GestionVoyageLocal {
                         
             // est ce que la navette actuellement arrimée au quai va partir ?
             boolean prochainsVoyagesPrevus = false;
-            boolean prochainsTransfertPrevus = false;
             prochainsVoyagesPrevus = this.voyageFacade.verifierSiAutresVoyagesPrevusSurNavette(Calendar.getInstance(), q.getNavette());
-            if (prochainsVoyagesPrevus == false) {
+            if (q.getNavette() != null && prochainsVoyagesPrevus == false) {
                 continue; // la navette ne repartira jamais, passons au prochain quai
             } 
             
@@ -256,11 +255,10 @@ public class GestionVoyage implements GestionVoyageLocal {
             autresVoyagesPrevus = this.voyageFacade.verifierSiNavettePossedeDepartVoyageAvantDate(dateArrivee, autreNavette);
             if (autresVoyagesPrevus == false){
                 Logger.getLogger(GestionVoyage.class.getName()).log(Level.INFO, "ECHEC ! La navette " + autreNavette + " sera encore arrimée au quai quand nous allons arriver.");
-                continue;
             } else {
                 Logger.getLogger(GestionVoyage.class.getName()).log(Level.INFO, "SUCCES ! La navette " + autreNavette + " ne sera plus arrimée au quai quand nous allons arriver.");
                 quaiArriveFinal = q;
-                break outerloop;
+                break;
             }
         }
 

@@ -9,6 +9,7 @@ import frjulienrobardet.entities.Mecanicien;
 import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Revision;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -60,7 +61,7 @@ public class RevisionFacade extends AbstractFacade<Revision> implements Revision
 
     @Override
     public Revision recupererDerniereRevisionQuai(Quai quai) {
-        List<Revision> listeRevision = null;
+        List<Revision> listeRevision = new ArrayList<>();
         Revision derniereRevision = null;
         for(Revision revision : this.findAll()){
             if (revision.getQuaiNavette().equals(quai)){
@@ -77,7 +78,7 @@ public class RevisionFacade extends AbstractFacade<Revision> implements Revision
 
     @Override
     public Revision recupererDerniereRevisionMecanicienQuai(Quai quai, Mecanicien m) {
-        List<Revision> listeRevision = null;
+        List<Revision> listeRevision = new ArrayList<>();
         Revision derniereRevision = null;
         for(Revision revision : this.findAll()){
             if (revision.getQuaiNavette().equals(quai) && revision.getMecanicien().equals(m)){

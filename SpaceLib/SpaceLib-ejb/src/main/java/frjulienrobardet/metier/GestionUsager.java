@@ -22,8 +22,7 @@ public class GestionUsager implements GestionUsagerLocal {
     @EJB
     private UsagerFacadeLocal usager;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
     public Long authentifier(String login, String password)throws UtilisateurInconnu{
         Usager u = usager.authentifier(login, password);
         if (u == null) {

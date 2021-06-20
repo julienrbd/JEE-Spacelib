@@ -9,6 +9,7 @@ import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Usager;
 import frjulienrobardet.entities.Voyage;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -45,18 +46,21 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     @Override
     public Voyage findPlusProcheVoyageArriveADateEtQuai(Calendar dateDepart, Quai quai) {
-        List<Voyage> listeVoyage = null;
+        List<Voyage> listeVoyage = new ArrayList<>();
         for(Voyage voyage : this.findAll()){
-            if (voyage.getQuaiArrivee() == quai && voyage.getDateArrivee().compareTo(dateDepart)<=0){
+            if (voyage.getQuaiArrivee() == quai && voyage.getDateArrivee().before(dateDepart)){
                 listeVoyage.add(voyage);
             }
+        }
+        if (listeVoyage.isEmpty()){
+            return null;
         }
         if (listeVoyage.size() == 1){
             return listeVoyage.get(0);
         }
         Voyage voyageRetour = null;
         for (Voyage voyage : listeVoyage){
-            if (voyageRetour == null || voyage.getDateArrivee().compareTo(voyageRetour.getDateArrivee())<0)
+            if (voyageRetour == null || voyage.getDateArrivee().before(voyageRetour.getDateArrivee()))
                 voyageRetour=voyage;
         }
         return voyageRetour;
@@ -64,7 +68,7 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     @Override
     public Voyage findPlusProcheVoyageDepartDeNavetteADateEtQuai(Calendar dateDepart, Quai quai, Navette navette) {
-        List<Voyage> listeVoyage = null;
+        List<Voyage> listeVoyage = new ArrayList<>();
         for(Voyage voyage : this.findAll()){
             if (voyage.getQuaiDepart() == quai && voyage.getNavette() == navette && voyage.getDateDepart().compareTo(dateDepart)>=0){
                 listeVoyage.add(voyage);
@@ -83,7 +87,7 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     @Override
     public List<Voyage> findAllVoyagesPrevusByUsager(Usager usager) {
-        List<Voyage> listeVoyage = null;
+        List<Voyage> listeVoyage = new ArrayList<>();
         for(Voyage voyage : this.findAll()){
             if (voyage.getUsager() == usager && voyage.getStatut().equals(Voyage.statutDebutVoyage)){
                 listeVoyage.add(voyage);
@@ -94,10 +98,11 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     @Override
     public Voyage findVoyageEnCoursUsager(Usager usager) {
-        List<Voyage> listeVoyage = null;
+        List<Voyage> listeVoyage = new ArrayList<>();
+        Calendar currDate = Calendar.getInstance();
         for(Voyage voyage : this.findAll()){
-            if (voyage.getUsager() == usager && voyage.getStatut().equals(Voyage.statutDebutVoyage)){
-                listeVoyage.add(voyage);
+            if (voyage.getUsager() == usager && voyage.getStatut().equals(Voyage.statutDebutVoyage) && voyage.getDateDepart().before(currDate)){
+                return voyage;
             }
         }
         return null;
@@ -105,7 +110,7 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     @Override
     public boolean verifierSiAutresVoyagesPrevusSurNavette(Calendar dateDepart, Navette navette) {
-        List<Voyage> listeVoyage = null;
+        List<Voyage> listeVoyage = new ArrayList<>();
         for(Voyage voyage : this.findAll()){
             if (voyage.getNavette() == navette && voyage.getDateDepart().compareTo(dateDepart)>=0){
                 listeVoyage.add(voyage);
@@ -116,7 +121,7 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
 
     @Override
     public boolean verifierSiNavettePossedeDepartVoyageAvantDate(Calendar dateDepart, Navette navette) {
-        List<Voyage> listeVoyage = null;
+        List<Voyage> listeVoyage = new ArrayList<>();
         for(Voyage voyage : this.findAll()){
             if (voyage.getNavette() == navette && voyage.getDateDepart().compareTo(dateDepart)<=0){
                 listeVoyage.add(voyage);

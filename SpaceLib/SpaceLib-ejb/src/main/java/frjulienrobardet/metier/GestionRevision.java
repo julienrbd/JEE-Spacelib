@@ -71,7 +71,7 @@ public class GestionRevision implements GestionRevisionLocal {
 
     @Override
     public Revision consulterRevisionEnCours(long idMecanicien, long idStation) throws QuaiInexistant {
-        List<Quai> quais = new ArrayList<Quai>();
+        List<Quai> quais = new ArrayList<>();
         Revision revisionResultat = null;
 
         Station station = this.stationFacade.find(idStation);
@@ -129,7 +129,7 @@ public class GestionRevision implements GestionRevisionLocal {
 
     @Override
     public List<Revision> recupererListeNavettesAReviser(long idStation) throws QuaiInexistant, RevisionInexistante{
-        List<Quai> quais = new ArrayList<Quai>();
+        List<Quai> quais = new ArrayList<>();
         List<Revision> revisions = new ArrayList<Revision>();
 
         Station station = this.stationFacade.find(idStation);
