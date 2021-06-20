@@ -66,7 +66,6 @@ public class ServicesUsager implements ServicesUsagerRemote {
         return this.gestionUsager.creerCompte(nom, prenom, login, motdepasse);
     }
 
-    @Override
     public VoyageExport reserverVoyage(Long idUsager, Long idStationDepart, Long idStationArrivee, int NbPassagers, Calendar dateDepart) throws QuaiInexistant, QuaiIndisponible, TempsTrajetInconnu, UtilisateurInconnu, StationInconnu, NavetteIndisponible{
         Voyage voyage = this.gestionVoyage.reserverVoyage(idUsager, idStationDepart, idStationArrivee, NbPassagers, dateDepart);
         System.out.println("Voyage = " + voyage);
@@ -124,7 +123,6 @@ public class ServicesUsager implements ServicesUsagerRemote {
         return resultList;
     }
 
-    @Override
     public ArrayList<VoyageExport> obtenirVoyagesPrevusUsager(Long idUsager) throws UtilisateurInconnu {
         List<Voyage> voyages = this.gestionVoyage.obtenirVoyagesPrevusUsager(idUsager);
         
@@ -149,12 +147,12 @@ public class ServicesUsager implements ServicesUsagerRemote {
         return voyageExports;
     }
 
-    @Override
+
     public void annulerVoyage(Long idUsager, Long idVoyage) throws UtilisateurInconnu, ReservationInconnu, ReservationPassee, ReservationCloturee {
         this.gestionVoyage.annulerVoyage(idUsager, idVoyage);
     }
 
-    @Override
+ 
     public StationExport obtenirStationParIdQuai(Long idQuai) throws StationInconnu, QuaiInexistant {
         Quai q = this.quaiFacade.find(idQuai);
         if(q == null){
@@ -175,4 +173,5 @@ public class ServicesUsager implements ServicesUsagerRemote {
 
         return stationExport;
     }
+
 }
