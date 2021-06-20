@@ -185,7 +185,16 @@ public class GestionVoyage implements GestionVoyageLocal {
         if (usager == null) {
             throw new UtilisateurInconnu("Ce compte d'usager n'existe pas.");
         }
-        final Voyage voy = this.voyageFacade.findVoyageEnCoursUsager(usager);     
+        List<Voyage> l = usager.getVoyages();
+        Calendar currDate = Calendar.getInstance();
+        for (Voyage v : l){
+            Logger.getLogger(GestionVoyage.class.getName()).log(Level.SEVERE,""+ v.getDateDepart().getTime()+ " curr " + currDate.getTime()+ " "+ v.getDateDepart().compareTo(currDate));
+        }
+        
+        
+        final Voyage voy = this.voyageFacade.findVoyageEnCoursUsager(usager);
+        Logger.getLogger(GestionVoyage.class.getName()).log(Level.SEVERE,""+ "ok");
+                
         if (voy == null) {
             throw new VoyageInconnu("Pas de voyage en cours.");
         }

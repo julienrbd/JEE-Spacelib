@@ -9,8 +9,11 @@ import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Usager;
 import frjulienrobardet.entities.Voyage;
+import frjulienrobardet.metier.GestionVoyage;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,9 +47,12 @@ public class VoyageFacade extends AbstractFacade<Voyage> implements VoyageFacade
     @Override
     public Voyage findVoyageEnCoursUsager(Usager usager) {
         Calendar currDate = Calendar.getInstance();
+        Logger.getLogger(VoyageFacade.class.getName()).log(Level.INFO, "voyage en cours : {0}", usager.getLogin());
         for (Voyage voyage : this.findAll()){
+            
+            Logger.getLogger(VoyageFacade.class.getName()).log(Level.INFO, "voyage en cours : "+  voyage.getDateDepart().getTime() +" date curr "+ currDate.getTime());
             if (voyage.getUsager().equals(usager)){
-                if (voyage.getDateDepart().compareTo(currDate)>0 && (voyage.getStatut().equals(Voyage.statutDebutVoyage))){
+                if (voyage.getDateDepart().compareTo(currDate)<=0 && (voyage.getStatut().equals(Voyage.statutDebutVoyage))){
                     return voyage;
                 }
             }

@@ -164,7 +164,7 @@ public class CLIBorne {
         Long idStationArrivee = utils.saisirEntier(scanner, getIDsStations(stationsArrivee));
         
         
-        System.out.println("Indiquer le nombre de passager :  : ");
+        System.out.println("Indiquer le nombre de passager : ");
         // "Nombre de passagers: ",
         Long nbPassagers = utils.saisirEntier(scanner, new Long(0), Long.MAX_VALUE);
         VoyageExport voyage = this.serviceUsager.reserverVoyage(usager, idStationDepart, idStationArrivee, (int) (long) nbPassagers);
@@ -174,6 +174,7 @@ public class CLIBorne {
     private void arrivee(Long usager) throws UtilisateurInconnu, VoyageInconnu {
         VoyageExport voyageEncours = this.serviceUsager.voyageEnCours(usager);
         //, "Finaliser le voyage en cours? "
+        System.out.println("finaliser? : ");
         if (utils.yesNoQuestion(scanner)) {
             this.serviceUsager.finaliserVoyage(voyageEncours.getId());
         }
