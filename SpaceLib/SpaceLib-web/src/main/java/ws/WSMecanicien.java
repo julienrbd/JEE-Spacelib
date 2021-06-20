@@ -8,7 +8,6 @@ package ws;
 import frjulienrobardet.entities.Navette;
 import frjulienrobardet.entities.Quai;
 import frjulienrobardet.entities.Revision;
-import frjulienrobardet.entities.Station;
 import frjulienrobardet.services.ServicesMecanicienLocal;
 import frjulienrobardet.spacelibshared.exceptions.NavetteInconnu;
 import frjulienrobardet.spacelibshared.exceptions.NavettePourQuaiInexistant;
@@ -17,6 +16,10 @@ import frjulienrobardet.spacelibshared.exceptions.RevisionInexistante;
 import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
+import frjulienrobardet.spacelibshared.export.NavetteExport;
+import frjulienrobardet.spacelibshared.export.RevisionExport;
+import frjulienrobardet.spacelibshared.export.StationExport;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -50,7 +53,7 @@ public class WSMecanicien {
     }
 
     @WebMethod(operationName = "consulterListeNavettes")
-    public List<Navette> consulterListeNavettes(@WebParam(name = "idStation") long idStation) throws StationInconnu {
+    public List<NavetteExport> consulterListeNavettes(@WebParam(name = "idStation") long idStation) throws StationInconnu {
         return ejbRef.consulterListeNavettes(idStation);
     }
 
@@ -60,8 +63,7 @@ public class WSMecanicien {
     }
 
     @WebMethod(operationName = "consulterRevisionEnCours")
-    public Revision consulterRevisionEnCours(@WebParam(name = "idMecanicien") long idMecanicien, @WebParam(name = "idStation") long idStation) throws NavetteInconnu, QuaiInexistant, RevisionInexistante {
-        
+    public RevisionExport consulterRevisionEnCours(@WebParam(name = "idMecanicien") long idMecanicien, @WebParam(name = "idStation") long idStation) throws NavetteInconnu, QuaiInexistant, RevisionInexistante {
         return ejbRef.consulterRevisionEnCours(idMecanicien, idStation);
     }
 
@@ -71,12 +73,12 @@ public class WSMecanicien {
     }
 
     @WebMethod(operationName = "recupererListeStations")
-    public List<Station> recupererListeStations() {
+    public ArrayList<StationExport> recupererListeStations() {
         return ejbRef.recupererListeStations();
     }
 
     @WebMethod(operationName = "recupererListeNavettesAReviser")
-    public List<Revision> recupererListeNavettesAReviser(@WebParam(name = "idStation") long idStation) throws StationInconnu, QuaiInexistant, NavettePourQuaiInexistant, RevisionInexistante {
+    public List<RevisionExport> recupererListeNavettesAReviser(@WebParam(name = "idStation") long idStation) throws StationInconnu, QuaiInexistant, NavettePourQuaiInexistant, RevisionInexistante {
         return ejbRef.recupererListeNavettesAReviser(idStation);
     }
     

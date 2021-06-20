@@ -20,6 +20,10 @@ import frjulienrobardet.spacelibshared.exceptions.RevisionInexistante;
 import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
+import frjulienrobardet.spacelibshared.export.NavetteExport;
+import frjulienrobardet.spacelibshared.export.RevisionExport;
+import frjulienrobardet.spacelibshared.export.StationExport;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -64,8 +68,19 @@ public class ServicesMecanicien implements ServicesMecanicienLocal {
     }
 
     @Override
-    public List<Navette> consulterListeNavettes(long idStation) throws StationInconnu {
-        return this.gestionNavette.consulterListeNavettes(idStation);
+    public List<NavetteExport> consulterListeNavettes(long idStation) throws StationInconnu {
+
+        
+             List<Navette> navettes = this.gestionNavette.consulterListeNavettes(idStation);
+        ArrayList<NavetteExport> resultList = new ArrayList<>();
+        for (Navette navette : navettes) {
+            NavetteExport navetteE = new NavetteExport();
+            navetteE.setId(navette.getId());
+            navetteE.setNbPlaces(navette.getNbPlaces());
+            navetteE.setNbVoyages(navette.getNbVoyages());
+            resultList.add(navetteE);
+        }
+        return resultList;
     }
 
     @Override
@@ -74,8 +89,14 @@ public class ServicesMecanicien implements ServicesMecanicienLocal {
     }
 
     @Override
-    public Revision consulterRevisionEnCours(long idMecanicien, long idStation) throws NavetteInconnu, QuaiInexistant, RevisionInexistante {
-        return this.gestionRevision.consulterRevisionEnCours(idMecanicien, idStation);
+    public RevisionExport consulterRevisionEnCours(long idMecanicien, long idStation) throws NavetteInconnu, QuaiInexistant, RevisionInexistante {
+        RevisionExport r = new RevisionExport();
+        Revision r1 = new Revision();
+        r1 = this.gestionRevision.consulterRevisionEnCours(idMecanicien, idStation);
+        r.setId(r1.getId());
+        r.setStatut(r1.getStatut());
+        r.setDateCreation(r1.getDateCreation());
+        return r;
     }
 
     @Override
@@ -84,12 +105,32 @@ public class ServicesMecanicien implements ServicesMecanicienLocal {
     }
 
     @Override
-    public List<Station> recupererListeStations() {
-        return this.gestionStation.recupererListeStations();
+    public ArrayList<StationExport> recupererListeStations() {
+           List<Station> stations = this.gestionStation.recupererListeStations();
+        ArrayList<StationExport> resultList = new ArrayList<>();
+        for (Station station : stations) {
+            StationExport stationExport = new StationExport();
+            stationExport.setId(station.getId());
+            stationExport.setLocalisation(station.getLocalisation());
+            stationExport.setNbQuais(station.getNbQuais());
+            stationExport.setNom(station.getNom());
+            resultList.add(stationExport);
+        }
+        return resultList;
     }
 
     @Override
-    public List<Revision> recupererListeNavettesAReviser(long idStation) throws StationInconnu, QuaiInexistant, NavettePourQuaiInexistant, RevisionInexistante {
-        return this.gestionRevision.recupererListeNavettesAReviser(idStation);
+    public List<RevisionExport> recupererListeNavettesAReviser(long idStation) throws StationInconnu, QuaiInexistant, NavettePourQuaiInexistant, RevisionInexistante {
+         List<RevisionExport> rExport = new ArrayList <RevisionExport>();
+        List<Revision> revisions = this.gestionRevision.recupererListeNavettesAReviser(idStation);
+        for (Revision r : revisions) {
+            RevisionExport r1 = new RevisionExport();
+           r1.setId(r.getId());
+           r1.setStatut(r.getStatut());
+           r1.setDateCreation(r.getDateCreation());
+           rExport.add(r1);
+           }
+           return rExport;
     }
+ 
 }

@@ -16,6 +16,10 @@ import frjulienrobardet.spacelibshared.exceptions.RevisionInexistante;
 import frjulienrobardet.spacelibshared.exceptions.StationInconnu;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurExistant;
 import frjulienrobardet.spacelibshared.exceptions.UtilisateurInconnu;
+import frjulienrobardet.spacelibshared.export.NavetteExport;
+import frjulienrobardet.spacelibshared.export.StationExport;
+import frjulienrobardet.spacelibshared.export.RevisionExport;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,17 +35,17 @@ public interface ServicesMecanicienLocal {
     
     public long renseignerStationRattachement(String nom) throws StationInconnu;
     
-    public List<Navette> consulterListeNavettes(long idStation) throws StationInconnu;
+    public List<NavetteExport> consulterListeNavettes(long idStation) throws StationInconnu;
 
     public Quai choisirNavetteDebutRevision(long idNavette, long idStation, long idMecanicien) throws NavetteInconnu, UtilisateurInconnu, QuaiInexistant;
     
-    public Revision consulterRevisionEnCours(long idMecanicien, long idStation) throws NavetteInconnu, QuaiInexistant, RevisionInexistante;
+    public RevisionExport consulterRevisionEnCours(long idMecanicien, long idStation) throws NavetteInconnu, QuaiInexistant, RevisionInexistante;
     
     public void finirRevisionEnCours(long idNavette, long idStation, long idMecanicien) throws QuaiInexistant, NavetteInconnu, UtilisateurInconnu;
 
-    public List<Station> recupererListeStations();
+    public ArrayList<StationExport> recupererListeStations();
     
-    public List<Revision> recupererListeNavettesAReviser(long idStation) throws StationInconnu, QuaiInexistant, NavettePourQuaiInexistant, RevisionInexistante;
+    public List<RevisionExport> recupererListeNavettesAReviser(long idStation) throws StationInconnu, QuaiInexistant, NavettePourQuaiInexistant, RevisionInexistante;
     
     
 }
